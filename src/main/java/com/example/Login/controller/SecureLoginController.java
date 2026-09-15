@@ -1,6 +1,7 @@
 package com.example.Login.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,17 +39,18 @@ public class SecureLoginController {
             @RequestParam("nome") String nome,
             @RequestParam("email") String email,
             @RequestParam("cpf") String cpf,
-            @RequestParam("rg") String rg,
-            @RequestParam("endereco") String endereco,
-            @RequestParam("instituicao") String instituicao,
-            @RequestParam("senha") String senha) {
+            @RequestParam("senha") String senha,
+            @RequestParam("confirmarSenha") String confirmarSenha,
+            Model model) {
 
-        // Aqui você pode adicionar lógica para salvar os dados do usuário, por exemplo:
-        // userService.saveUser(new User(nome, email, cpf, rg, endereco, instituicao, senha));
+        
+        if (!senha.equals(confirmarSenha)) {
+            model.addAttribute("error", "As senhas não coincidem!");
+            return "register";
+        }
 
-        // Redirecionar ou exibir uma mensagem de sucesso
-        System.out.println("Registro: Redirecionado para a página de login.");
-        return "redirect:/login"; // Após o registro, redirecionar para a página de login
+        System.out.println("Usuário registrado com sucesso: " + email);
+        return "redirect:/login?registered=true";
     }
 
     @GetMapping("/recoverpassword")
@@ -57,14 +59,8 @@ public class SecureLoginController {
     }
 
     @PostMapping("/recoverpassword")
-    public String handleRecoverPassword(
-            @RequestParam("email") String email) {
-
-        // Aqui você pode adicionar lógica para recuperar a senha.
-        // userService.recoverPassword(email);
-
-        // Redirecionar ou exibir uma mensagem de sucesso
-        System.out.println("Recuperação de E-mail: Redirecionado para a página de login.");
-        return "redirect:/login"; // Após a recuperação de senha, redirecionar para a página de login
+    public String handleRecoverPassword(@RequestParam("email") String email) {
+        System.out.println("Recuperação solicitada para o e-mail: " + email);
+        return "redirect:/login";
     }
 }
