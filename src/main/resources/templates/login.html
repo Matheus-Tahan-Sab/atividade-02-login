@@ -1,34 +1,73 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>FinControl - Acesso ao Sistema</title>
+    <!-- Ícones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS da Aplicação -->
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 
 <body>
-<div class="login-container">
-    <div class="login-image-logo-container">
-        <img th:src="@{/images/apc-login-bg.png}" alt="Logo PUC Minas">
-    </div>
-    <div class="login-form">
-        <form th:action="@{/login}" method="post" class="login-form">
-            <h4 class="login-title">Login</h4>
-            <input type="text" id="username" name="username" placeholder="Username" required>
-            <input type="password" id="password" name="password" placeholder="Senha" required>
-            <div class="login-button-container">
-                <button type="submit">Entrar</button>
+
+<div class="main-wrapper">
+    <!-- Esquerda: Banner Institucional + Cofrinho Animado -->
+    <div class="brand-side">
+        <div class="brand-logo">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>FinControl</span>
+        </div>
+
+        <div class="brand-content">
+            <h1>Domine seus números. Conquiste seu futuro.</h1>
+            <p>Acompanhe receitas, despesas e relatórios em tempo real na sua plataforma de gestão financeira.</p>
+
+            <!-- Ilustração do Cofrinho com Moeda Animada -->
+            <div class="piggy-animation-wrapper">
+                <div class="falling-coin"><i class="fa-solid fa-coins"></i></div>
+                <div class="piggy-icon">
+                    <i class="fa-solid fa-piggy-bank"></i>
+                </div>
             </div>
-            <p class="login-redirect-options">
-                Ainda não tem cadastro? <br>
-                <a href="/register">Cadastre-se</a> |
-                <a href="/recoverpassword">Esqueceu sua senha?</a>
-            </p>
+        </div>
+    </div>
+
+    <!-- Direita: Formulário de Login -->
+    <div class="form-side">
+        <div class="form-header">
+            <h2>Boas-vindas de volta!</h2>
+            <p>Insira suas credenciais para acessar o painel</p>
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="input-group">
+                <label for="username">Usuário ou E-mail</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="username" name="username" placeholder="usuario" required autocomplete="off">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary">Acessar Painel</button>
+
+            <div class="form-links">
+                <p>Ainda não possui conta? <a th:href="@{/register}">Cadastre-se</a></p>
+                <p style="margin-top: 8px;"><a th:href="@{/recoverpassword}">Esqueceu a senha?</a></p>
+            </div>
         </form>
     </div>
 </div>
-</body>
 
+</body>
 </html>
